@@ -1,0 +1,5 @@
+node_modules/
+lib/
+*.tgz
+# 本地验证脚本（不使用测试框架，仅手工运行）
+verify*.mjs

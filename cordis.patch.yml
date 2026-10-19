@@ -1,0 +1,9 @@
+# dsh_skills_adapter bundle patch：把 Claude 项目级技能 Provider 挂载到
+# 宿主技能注册表（该行位于 host 平面，因此每个 agent preset 的 scope 链
+# 都会合并它注册的技能）。
+#
+# 本补丁叠加在 dsh-base 层之上；后续层（profile 自己的 cordis.patch.yml
+# 以及 --patch 覆盖）仍可按 id 定位并修改这一行。
+- insert:
+    - id: dsh-skills-adapter
+      name: 'dsh_skills_adapter'
