@@ -15,7 +15,7 @@ import type {
 } from '@deepseek-ai/dsh-skill'
 
 /** 插件在 Cordis 配置树中的行标识。 */
-export const name = 'dsh_skills_adapter'
+export const name = 'dsh-skills-adapter'
 
 /** Services required before `apply` runs. */
 export const inject = ['skills']

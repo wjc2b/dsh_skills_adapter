@@ -1,4 +1,4 @@
-# dsh_skills_adapter
+# dsh-skills-adapter
 
 把 Claude Code 风格的技能（`.claude/skills/`）接入 DeepSeek Harness 的插件。
 
@@ -21,16 +21,36 @@ DSH 内置的 `skill-filesystem` Provider 只发现 `.dsh/skills` 与 `.agents/s
 
 ## 安装
 
+推荐通过 npm registry 安装：
+
 ```bash
-npm pack
-dsh plugin --profile <profile> add /绝对路径/dsh_skills_adapter-1.0.0.tgz
+dsh plugin --profile <profile> add dsh-skills-adapter
 dsh --profile <profile>
 ```
+
+如果该版本尚未发布到 npm，或需要使用仓库最新代码，可直接从 GitHub 安装：
+
+```bash
+dsh plugin --profile <profile> add github:wjc2b/dsh_skills_adapter
+```
+
+本地开发时也可以克隆后直接从目录安装（需先完成构建，见「开发」一节）：
+
+```bash
+git clone https://github.com/wjc2b/dsh_skills_adapter.git
+cd dsh_skills_adapter
+npm install && npm run build
+dsh plugin --profile <profile> add /绝对路径/dsh_skills_adapter
+```
+
+以上方式都不需要手动 `npm pack` 再传 tarball 路径。能否直接使用 GitHub 简写或
+本地目录，取决于你的 `dsh plugin add` 底层是否走 npm/pnpm 的安装来源；若该版本
+只接受 registry 包名，请先按「开发」一节构建并执行 `npm publish`。
 
 卸载：
 
 ```bash
-dsh plugin --profile <profile> remove dsh_skills_adapter
+dsh plugin --profile <profile> remove dsh-skills-adapter
 ```
 
 ## 技能格式
@@ -100,6 +120,17 @@ npm run build
 `setup.sh` 是必要的：本插件依赖 DSH 宿主提供的 `@deepseek-ai/cordis` 与
 `@deepseek-ai/dsh-skill`（见 `peerDependencies`），开发期通过软链指向本地部署。
 `npm install` 会清理这类软链，因此安装依赖后需重新执行。
+
+### 发布到 npm
+
+```bash
+npm login
+npm publish --access public
+```
+
+发布后即可通过 `dsh plugin --profile <profile> add dsh-skills-adapter` 安装。
+发布前请确认 `package.json` 中的 `name` 与 `cordis.patch.yml` 中的 `name` 一致
+（均为 `dsh-skills-adapter`），否则插件无法被加载。
 
 ## 已知限制
 
